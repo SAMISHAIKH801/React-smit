@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+     <link rel="stylesheet" href="./style.css">
+     
+
+  </head>
+  <body onload="getAllPost()">
+
+
+    <h1> Curd App with Mongodb</h1>
+    <form onsubmit="createPost() ; return false">
+
+     <div class="input-1"> 
+
+       <label for="postTitle">Title:</label>
+       <input type="text" name="postTitle" id="postTitle" placeholder="enter your title"/>
+      </div>
+      <br />
+      <div class="input-2"> 
+
+        <label for="postText">Text:</label>
+        <input type="text" name="postText" id="postText" placeholder="enter your text"/>
+      </div>
+        <br />
+
+      <button type="submit">Create Post</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    
+    <div class="result"></div>
+    <br>
+    <div class="posts"></div>
+
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script src="script.js"></script>
+    <script type="module">
+      window.createPost = function () {
+
+
+        let postTitle = document.querySelector("#postTitle").value;
+        let postText = document.querySelector("#postText").value;
+      
+
+        axios
+          .post( `/post`, {
+           title: postTitle,
+           text: postText
+          } )
+
+          // .then(function (respnose))
+          .then( (response) => {
+          
+            console.log(response.data);
+           
+            document.querySelector(".result").innerHTML = 
+            `succesfully ${response.data}` 
+            getAllPost()
+             
+          })
+          .catch(function (error) {
+
+            console.log(error);
+            document.querySelector(".result").innerHTML =
+              "error in post submission";
+          });
+      };
+     
+      window.getAllPost = function () {
+
+        axios
+          .get( `/posts`  )
+          .then(function (response) {
+          
+            console.log(response.data);
+           
+            let postHtml = ``
+
+            response.data.map((eachPost)=> {
+              postHtml += `<div id="card-${eachPost._id}" class="post-card">
+                 <h3>${eachPost.title}</h3> 
+                <p>${eachPost.text}</p>
+                
+                <button class="dltpost" onclick="delPost('${eachPost._id}')">Delete</button>
+                <button class="editpost"  onclick="editPost('${eachPost._id}', '${eachPost.title}','${eachPost.text}',)">Edit</button>
+                </div>`
+            })
+            document.querySelector(".posts").innerHTML = postHtml
+       })
+          .catch(function (error) {
+
+            console.log(error.data);
+            document.querySelector(".result").innerHTML =
+              "error in post submission";
+          });
+      };
+      window.delPost = function (postId) {
+
+        console.log("delPost", postId)
+
+        axios
+          .delete( `/post/${postId}`  )
+          .then(function (response) {
+          
+            console.log(response.data);
+                      getAllPost();
+         })
+          .catch(function (error) {
+
+            console.log(error.data);
+            document.querySelector(".result").innerHTML =
+              "error in post submission";
+          });
+      };
+
+    window.editPost = (postId, title, text) => {
+        console.log("edit", postId);
+
+    document.querySelector(`#card-${postId}`).innerHTML = `
+      <form onsubmit="savePost('${postId}')">
+        title: <input type="text" value="${title}" id="title-${postId}" />
+        <br/>
+        text: <input type="text" value="${text}" id="text-${postId}" />
+        <br/>
+        <button>Save</button>
+      </form>
+    `;
+  };
+
+      window.savePost = (postId) => {
+         const updatedTitle = document.querySelector(`#title-${postId}`).value;
+         const updatedText = document.querySelector(`#text-${postId}`).value;
+
+        
+         axios
+          .put( `/post/${postId}`, {
+           title: updatedTitle,
+           text:  updatedText
+          } )
+          .then(function (response) {
+            console.log(response.data);       
+            getAllPost()
+             
+          })
+          .catch(function (error) {
+
+            console.log(error.data);
+            document.querySelector(".result").innerHTML =
+              "error in post submission";
+          });
+      };
+       </script>
+  </body>
+</html>

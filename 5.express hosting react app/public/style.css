@@ -1,0 +1,103 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: black;
+  
+}
+h1{
+  align-items: center;
+  text-align: center;
+    margin-top: 25px;
+    color: rgb(165, 6, 6);
+    box-shadow: 0px 0px 10px wheat;
+   
+}
+form{
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+}
+form label{
+  font-size: 1.5em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: red;
+}
+input{
+  width: 50%;
+  height: 2.5rem;
+  padding: 10px;
+  color: aliceblue;
+
+}
+.input-2 input{
+height: 5rem;
+padding-bottom: 50px;
+color: aliceblue;
+}
+
+form button{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px 15px;
+  background-color: rgb(12, 162, 12);
+  color: wheat;
+}
+.post-card {
+  
+    box-shadow: 0px 0px 10px black;
+    border: 1px solid rgb(105, 34, 34);
+    border-radius: 5px;
+    padding: 2rem;
+    width: 30%;
+    margin: 10px;
+    background-image: url("post\ bg\ img\ 2.jpg") ; /* Replace with your image path */
+  background-size: cover; /* Make the background image cover the entire card */
+   color: white; 
+  }
+  .post-card h3{
+    font-size: 1.5em;
+    color: red;
+    z-index: -1;
+  opacity: 0.8;
+  background-color: #373737;
+    margin-bottom: 12px;
+    padding: 5px;
+    border-radius: 5px
+  }
+ .post-card p{
+  margin-bottom: 10px;
+  padding: 11px;
+  border-radius: 5px;
+  background-color: #373737;
+  z-index: -1;
+  opacity: 0.89;
+}
+ 
+ .post-card button{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px 10px;
+ 
+ }
+ .dltpost {
+    background-color: rgb(197, 2, 2);
+    color: white;
+ }
+ .editpost {
+    background-color: rgb(14, 160, 75);
+    color: white;
+ }
+
+
+
+  .result{
+    align-items: center;
+  }
+  .posts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
